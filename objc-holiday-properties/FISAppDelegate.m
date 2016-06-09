@@ -6,36 +6,37 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+//    [ self holidaysInSeason:s]
     return YES;
 }
 
 - (NSArray *)holidaysInSeason:(NSString *)season {
-    
-    return nil;
+    NSArray *holidays = [ _database[ season] allKeys ] ;
+    return holidays;
 }
 
 - (NSArray *)suppliesInHoliday:(NSString *)holiday
                       inSeason:(NSString *)season {
-    
-    return nil;
+    NSMutableArray *holidaySupplies = _database[season][holiday];
+    return holidaySupplies;
 }
 
 - (BOOL)holiday:(NSString* )holiday
      isInSeason:(NSString *)season {
-    
-    return nil;
+    BOOL holidayIsInSeason = [ [_database[season] allKeys] containsObject:holiday ] ;
+    return holidayIsInSeason;
 }
 
 - (BOOL)supply:(NSString *)supply
    isInHoliday:(NSString *)holiday
       inSeason:(NSString *)season {
-    
-    return nil;
+    BOOL supplyIsInHoliday = [ _database[season][holiday] containsObject:supply ];
+    return supplyIsInHoliday;
 }
 
 - (void)addHoliday:(NSString *)holiday
           toSeason:(NSString *)season {
-    
+    _database[season][holiday] = [ NSMutableArray new ];
     // no return
 }
 
@@ -43,6 +44,7 @@
         toHoliday:(NSString *)holiday
          inSeason:(NSString *)season {
     
+    [ _database[season][holiday] addObject:supply];
     // no return
 }
 
